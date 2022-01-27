@@ -1,6 +1,7 @@
 //WiFi
 #define WIFI_SSID "Farmaan A10s"
 #define WIFI_PASSWORD "ptgp4252"
+
 //define sound speed in cm/uS
 #define SOUND_SPEED 0.034
 #define bin_depth 100
@@ -10,6 +11,7 @@
 const int trigPin = 5;
 const int echoPin = 18;
 const int ledPin = 5;
+const int buzzer=5;
 
 long duration;
 float distanceCm;
@@ -70,11 +72,19 @@ void garbage_level(){
   if (bin_percentage >= 85)
   {
     digitalWrite (ledPin, HIGH);
+    buzzer_ring();////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
   else
   {
     digitalWrite (ledPin, LOW);
   }
   
+  delay(1000);
+}
+
+void buzzer_ring(){
+  digitalWrite (buzzer, HIGH); //turn buzzer on
+  delay(1000);
+  digitalWrite (buzzer, LOW);  //turn buzzer off
   delay(1000);
 }
