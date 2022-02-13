@@ -35,6 +35,8 @@ String databasePath;
 String distPath = "/level";
 String percPath = "/percentage";
 String timePath = "/timestamp";
+String levelDate = "/date";
+String levelTime = "/time";
 
 // Parent Node (to be updated in every loop)
 String parentPath;
@@ -50,8 +52,8 @@ const char* ntpServer = "pool.ntp.org";
 
 const int trigPin = 5;
 const int echoPin = 18;
-const int ledPin = 5;
-const int buzzer=5;
+const int ledPin = 19;
+const int buzzer = 5;
 
 long duration;
 float distanceCm;
@@ -130,11 +132,11 @@ void Firebase_Init(){
 
 void loop() {
   read_print_sensors();
-  
 }
 
 void read_print_sensors(){
   garbage_level();
+  DateTime();
 
   // Send new readings to database
   if (Firebase.ready() && (millis() - sendDataPrevMillis > timerDelay || sendDataPrevMillis == 0)){
@@ -150,6 +152,8 @@ void read_print_sensors(){
     json.set(distPath.c_str(), String(garbage_level_cm));
     json.set(percPath.c_str(), String(bin_percentage));
     json.set(timePath, String(timestamp));
+    json.set(levelDate, String(__DATE__));
+    json.set(levelTime, String(__TIME__));
     Serial.printf("Set json... %s\n", Firebase.RTDB.setJSON(&fbdo, parentPath.c_str(), &json) ? "ok" : fbdo.errorReason().c_str());
   }
 }
@@ -194,7 +198,6 @@ void garbage_level(){
   if (bin_percentage >= 85)
   {
     digitalWrite (ledPin, HIGH);
-    //buzzer_ring();////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
   else
   {
@@ -209,4 +212,9 @@ void buzzer_ring(){
   delay(1000);
   digitalWrite (buzzer, LOW);  //turn buzzer off
   delay(1000);
+}
+
+void DateTime(){
+  //#define currentDate = __DATE__;
+  //#define currentTime = __TIME__;
 }
