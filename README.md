@@ -1,2 +1,2 @@
-# Smart-Bin
-A Smart Waste Detection and Segregation System which will detect garbage that has been dumped in irrelavant bins and turn on an alarm and also sense the level of garbage and switch on a red LED once the garbage reaches a level of 85%.
+# Smart Waste Detection and Segregation System
+A Smart Waste Detection and Segregation System implemented for types of bins, Organic, Paper, and Plastic. These devices will detect the irrelevant waste and turn on a buzzer to indicate that irrelevant waste has been dumped. Also, the system will sense the level of waste in the garbage bins and switch on an LED if the level surpasses over 85% of the total capacity of the bin. These data will be sent to firebase and the data can be retrieved to the Web Application.
